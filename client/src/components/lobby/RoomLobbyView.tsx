@@ -12,8 +12,8 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { useSocket } from '../../context/SocketContext';
 import { Room, RoomMember } from '../../types';
+import { PlayerProfileModal } from '../common/PlayerProfileModal';
 import { sound } from '../../utils/sound';
 
 interface RoomLobbyViewProps {
@@ -47,6 +47,7 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
   const { user } = useAuth();
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [selectedPlayerForModal, setSelectedPlayerForModal] = useState<{ id: string; username: string; avatar: string } | null>(null);
 
   const isHost = user?.id === room.host_id;
   const currentMember = members.find((m) => m.user_id === user?.id);
@@ -184,19 +185,32 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
                     </button>
                   )}
 
-                  {/* Avatar with Color Ring */}
-                  <div className="relative mt-2 mb-3">
+                  {/* Avatar with Color Ring (Clickable for Profile & Friend Request) */}
+                  <div
+                    onClick={() => {
+                      sound.playClick();
+                      setSelectedPlayerForModal({ id: member.user_id, username: member.username, avatar: member.avatar });
+                    }}
+                    title="Click to view profile & add friend"
+                    className="relative mt-2 mb-3 cursor-pointer group/avatar hover:scale-105 transition-transform"
+                  >
                     <img
                       src={member.avatar}
                       alt={member.username}
-                      className={`w-16 h-16 rounded-2xl bg-slate-950 object-cover ring-4 ${colorSlot.ring} shadow-xl`}
+                      className={`w-16 h-16 rounded-2xl bg-slate-950 object-cover ring-4 ${colorSlot.ring} shadow-xl group-hover/avatar:ring-white transition-all`}
                     />
                     <span className="absolute -bottom-1.5 -right-1.5 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-900 border border-slate-700 text-slate-200">
                       P{idx + 1}
                     </span>
                   </div>
 
-                  <p className="font-bold text-base text-white truncate max-w-[140px]">
+                  <p 
+                    onClick={() => {
+                      sound.playClick();
+                      setSelectedPlayerForModal({ id: member.user_id, username: member.username, avatar: member.avatar });
+                    }}
+                    className="font-bold text-base text-white truncate max-w-[140px] cursor-pointer hover:text-indigo-400 transition-colors"
+                  >
                     {member.username} {isMe && <span className="text-xs text-indigo-400">(You)</span>}
                   </p>
 
@@ -280,6 +294,16 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
           )}
         </div>
       </div>
+
+      {/* Player Profile Popup Modal */}
+      {selectedPlayerForModal && (
+        <PlayerProfileModal
+          userId={selectedPlayerForModal.id}
+          username={selectedPlayerForModal.username}
+          avatar={selectedPlayerForModal.avatar}
+          onClose={() => setSelectedPlayerForModal(null)}
+        />
+      )}
     </div>
   );
 };

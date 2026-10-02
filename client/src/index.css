@@ -85,3 +85,21 @@
 .turn-active {
   animation: turn-glow 1.8s infinite;
 }
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-bounce-soft {
+  animation: bounce-soft 1.5s ease-in-out infinite;
+}
+
+@keyframes token-pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)); }
+  50% { transform: scale(1.18); filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1)); }
+}
+
+.token-valid {
+  animation: token-pulse 0.9s ease-in-out infinite;
+}
