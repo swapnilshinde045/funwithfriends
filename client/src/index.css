@@ -2,37 +2,37 @@
 
 @layer base {
   body {
-    background-color: #f8fafc;
-    background-image: radial-gradient(#e2e8f0 1.2px, transparent 1.2px), radial-gradient(#e2e8f0 1.2px, #f8fafc 1.2px);
-    background-size: 48px 48px;
-    background-position: 0 0, 24px 24px;
-    color: #0f172a;
+    background-color: #ece6db;
+    background-image: radial-gradient(#d8d0c2 1.4px, transparent 1.4px), radial-gradient(#d8d0c2 1.4px, #ece6db 1.4px);
+    background-size: 36px 36px;
+    background-position: 0 0, 18px 18px;
+    color: #1c1917;
     font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
   }
 
-  /* Custom Clean Scrollbar */
+  /* Custom Warm Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: #e2dbcf;
   }
   ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #b8af9f;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: #968c7c;
   }
 }
 
-/* Classic Clean Cards */
+/* Classic Warm Ivory Cards */
 .glass-card, .arcade-card, .classic-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  background: #faf8f4;
+  border: 1px solid #dcd5c7;
+  box-shadow: 0 10px 25px -5px rgba(44, 34, 24, 0.07), 0 4px 6px -2px rgba(44, 34, 24, 0.04);
 }
 
 .classic-card-hover {
@@ -40,15 +40,15 @@
 }
 .classic-card-hover:hover {
   transform: translateY(-3px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-  border-color: #cbd5e1;
+  box-shadow: 0 20px 25px -5px rgba(44, 34, 24, 0.12), 0 8px 10px -6px rgba(44, 34, 24, 0.06);
+  border-color: #c9c0b0;
 }
 
-/* Ludo King Classic Board Frame */
+/* Ludo King Classic Mahogany Frame */
 .arcade-board-frame {
   background: linear-gradient(135deg, #4a2810 0%, #6e3a17 30%, #3d1e0a 70%, #2b1305 100%);
   border: 6px solid #d4a373;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -4px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 36px rgba(44, 24, 10, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* 3D Tactile Arcade Buttons */
@@ -122,11 +122,11 @@
 .dice-cube {
   width: 52px;
   height: 52px;
-  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 60%, #e2e8f0 100%);
-  border: 2px solid #cbd5e1;
-  border-bottom: 4px solid #94a3b8;
+  background: linear-gradient(145deg, #ffffff 0%, #f7f5f0 60%, #ded9ce 100%);
+  border: 2px solid #c8c1b3;
+  border-bottom: 4px solid #a39a8a;
   border-radius: 16px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), inset 0 2px 2px rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 16px rgba(50, 40, 30, 0.15), inset 0 2px 2px rgba(255, 255, 255, 0.9);
 }
 
 @keyframes dice-rolling {

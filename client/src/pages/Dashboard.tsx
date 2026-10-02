@@ -6,14 +6,12 @@ import {
   Users, 
   Play, 
   Plus, 
-  LogIn, 
   Music, 
   Radio, 
   Flame, 
   MessageSquare, 
   Lock,
-  Globe,
-  ArrowRight
+  Globe
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
@@ -95,8 +93,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in select-none">
       
-      {/* HERO BANNER (Classic Vibrant Arcade) */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-800 rounded-3xl p-6 sm:p-10 shadow-xl text-white">
+      {/* HERO BANNER (Warm Royal Arcade) */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-indigo-700 via-indigo-800 to-purple-900 rounded-3xl p-6 sm:p-10 shadow-xl text-white">
         <div className="relative z-10 max-w-2xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white border border-white/30 text-xs font-black uppercase tracking-widest backdrop-blur-sm">
             <Sparkles className="w-3.5 h-3.5" /> Real-Time Multiplayer Arcade
@@ -112,14 +110,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
           {/* Quick Action Bar: Join with Code & Create Room */}
           <div className="pt-2 flex flex-wrap items-center gap-3">
-            <form onSubmit={handleJoinByCode} className="flex items-center gap-2 bg-white rounded-2xl p-1.5 shadow-lg max-w-xs w-full border border-indigo-200">
+            <form onSubmit={handleJoinByCode} className="flex items-center gap-2 bg-[#faf8f4] rounded-2xl p-1.5 shadow-lg max-w-xs w-full border border-indigo-300">
               <input
                 type="text"
                 maxLength={6}
                 placeholder="ENTER 6-CHAR CODE..."
                 value={joinCodeInput}
                 onChange={(e) => setJoinCodeInput(e.target.value.toUpperCase())}
-                className="bg-transparent text-slate-900 font-mono font-black text-sm tracking-widest px-3 py-2 w-full focus:outline-none placeholder-slate-400"
+                className="bg-transparent text-stone-900 font-mono font-black text-sm tracking-widest px-3 py-2 w-full focus:outline-none placeholder-stone-400"
               />
               <button
                 type="submit"
@@ -152,38 +150,38 @@ export const Dashboard: React.FC<DashboardProps> = ({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-              <Gamepad2 className="w-6 h-6 text-indigo-600" /> Featured Games
+            <h2 className="text-xl sm:text-2xl font-black text-stone-900 flex items-center gap-2">
+              <Gamepad2 className="w-6 h-6 text-indigo-700" /> Featured Games
             </h2>
-            <p className="text-xs font-semibold text-slate-500">Pick a game to start an instant private room</p>
+            <p className="text-xs font-semibold text-stone-600">Pick a game to start an instant private room</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* 1. LUDO MULTIPLAYER */}
-          <div className="bg-white border border-slate-200 hover:border-red-400 rounded-3xl p-5 shadow-md hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden">
+          <div className="bg-[#faf8f4] border border-[#dcd5c7] hover:border-red-400 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative overflow-hidden">
             <div className="space-y-4">
               <div className="relative aspect-video rounded-2xl bg-gradient-to-br from-red-500 to-amber-500 p-4 flex flex-col justify-between overflow-hidden shadow-inner">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-white text-red-600 shadow-md">
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#faf8f4] text-red-700 shadow-sm">
                     2 - 6 PLAYERS
                   </span>
                   <Crown className="w-5 h-5 text-yellow-200" />
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center font-black text-xs text-red-600">🔴</div>
-                  <div className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center font-black text-xs text-emerald-600">🟢</div>
-                  <div className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center font-black text-xs text-amber-500">🟡</div>
-                  <div className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center font-black text-xs text-blue-600">🔵</div>
+                  <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center font-black text-xs">🔴</div>
+                  <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center font-black text-xs">🟢</div>
+                  <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center font-black text-xs">🟡</div>
+                  <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center font-black text-xs">🔵</div>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-lg font-black text-slate-900 group-hover:text-red-600 transition-colors">
+                <h3 className="text-lg font-black text-stone-900 group-hover:text-red-700 transition-colors">
                   Ludo Multiplayer
                 </h3>
-                <p className="text-xs text-slate-600 mt-1 font-medium line-clamp-2">
+                <p className="text-xs text-stone-600 mt-1 font-medium line-clamp-2">
                   Classic 15x15 board with 6-bonus rolls, safe stars, captures, and single-move auto roll just like Ludo King!
                 </p>
               </div>
@@ -200,11 +198,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* 2. SNAKES & LADDERS */}
-          <div className="bg-white border border-slate-200 hover:border-emerald-400 rounded-3xl p-5 shadow-md hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden">
+          <div className="bg-[#faf8f4] border border-[#dcd5c7] hover:border-emerald-400 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative overflow-hidden">
             <div className="space-y-4">
               <div className="relative aspect-video rounded-2xl bg-gradient-to-br from-emerald-500 to-green-700 p-4 flex flex-col justify-between overflow-hidden shadow-inner">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-white text-emerald-700 shadow-md">
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#faf8f4] text-emerald-800 shadow-sm">
                     2 - 4 PLAYERS
                   </span>
                   <Sparkles className="w-5 h-5 text-emerald-100" />
@@ -216,10 +214,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </div>
 
               <div>
-                <h3 className="text-lg font-black text-slate-900 group-hover:text-emerald-600 transition-colors">
+                <h3 className="text-lg font-black text-stone-900 group-hover:text-emerald-700 transition-colors">
                   Snakes & Ladders
                 </h3>
-                <p className="text-xs text-slate-600 mt-1 font-medium line-clamp-2">
+                <p className="text-xs text-stone-600 mt-1 font-medium line-clamp-2">
                   Classic 100-tile board race! Climb ladders to soar ahead and watch out for sneaky snakes pulling you back!
                 </p>
               </div>
@@ -236,11 +234,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* 3. MUSIC & WATCH LOUNGE */}
-          <div className="bg-white border border-slate-200 hover:border-pink-400 rounded-3xl p-5 shadow-md hover:shadow-xl transition-all flex flex-col justify-between group relative overflow-hidden">
+          <div className="bg-[#faf8f4] border border-[#dcd5c7] hover:border-pink-400 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative overflow-hidden">
             <div className="space-y-4">
               <div className="relative aspect-video rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 p-4 flex flex-col justify-between overflow-hidden shadow-inner">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-white text-pink-600 shadow-md">
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#faf8f4] text-pink-700 shadow-sm">
                     UNLIMITED SQUAD
                   </span>
                   <Radio className="w-5 h-5 text-white animate-pulse" />
@@ -251,10 +249,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </div>
 
               <div>
-                <h3 className="text-lg font-black text-slate-900 group-hover:text-pink-600 transition-colors">
+                <h3 className="text-lg font-black text-stone-900 group-hover:text-pink-700 transition-colors">
                   Music Watch Lounge
                 </h3>
-                <p className="text-xs text-slate-600 mt-1 font-medium line-clamp-2">
+                <p className="text-xs text-stone-600 mt-1 font-medium line-clamp-2">
                   Share YouTube queues, listen to lofi & gaming beats in sync, and hangout in real-time with your squad.
                 </p>
               </div>
@@ -271,27 +269,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* 4. MYSTERY ARCADE */}
-          <div className="bg-slate-100 border border-dashed border-slate-300 rounded-3xl p-5 flex flex-col justify-between opacity-80">
+          <div className="bg-[#e7e1d5] border border-dashed border-[#c5bba8] rounded-3xl p-5 flex flex-col justify-between opacity-85">
             <div className="space-y-4">
-              <div className="relative aspect-video rounded-2xl bg-slate-200 border border-slate-300 p-4 flex flex-col justify-between">
-                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-white text-indigo-600 w-fit shadow-xs">
+              <div className="relative aspect-video rounded-2xl bg-[#ded7cb] border border-[#c5bba8] p-4 flex flex-col justify-between">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#faf8f4] text-indigo-700 w-fit shadow-xs">
                   COMING SOON
                 </span>
-                <Flame className="w-6 h-6 text-amber-500 mx-auto" />
+                <Flame className="w-6 h-6 text-amber-600 mx-auto" />
               </div>
 
               <div>
-                <h3 className="text-lg font-black text-slate-800">
+                <h3 className="text-lg font-black text-stone-900">
                   Trivia & Party Games
                 </h3>
-                <p className="text-xs text-slate-500 mt-1 font-medium line-clamp-2">
+                <p className="text-xs text-stone-600 mt-1 font-medium line-clamp-2">
                   Rapid-fire buzzer quiz battles, drawing showdowns, and word games in development for the next update!
                 </p>
               </div>
             </div>
 
             <div className="pt-4">
-              <button disabled className="w-full py-2.5 rounded-xl bg-slate-200 text-slate-400 font-bold text-xs cursor-not-allowed">
+              <button disabled className="w-full py-2.5 rounded-xl bg-[#d5cdbf] text-stone-500 font-bold text-xs cursor-not-allowed">
                 In Development
               </button>
             </div>
@@ -304,9 +302,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Active Public Rooms (2 Cols) */}
-        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-3xl p-6 shadow-md space-y-4">
+        <div className="lg:col-span-2 bg-[#faf8f4] border border-[#dcd5c7] rounded-3xl p-6 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+            <h3 className="text-base font-black text-stone-900 flex items-center gap-2">
               <Globe className="w-5 h-5 text-indigo-600" /> Active Public Rooms ({activeRooms.length})
             </h3>
             <button onClick={loadDashboardData} className="text-xs text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer">
@@ -315,8 +313,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {activeRooms.length === 0 ? (
-            <div className="py-12 text-center text-slate-500 text-xs font-semibold">
-              <Gamepad2 className="w-10 h-10 mx-auto mb-2 text-slate-300" />
+            <div className="py-12 text-center text-stone-500 text-xs font-semibold">
+              <Gamepad2 className="w-10 h-10 mx-auto mb-2 text-stone-300" />
               No public lobbies right now. Create a new room and invite your friends!
             </div>
           ) : (
@@ -324,16 +322,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {activeRooms.map((r) => (
                 <div
                   key={r.id}
-                  className="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-400 transition-all flex items-center justify-between gap-3 shadow-xs"
+                  className="p-4 rounded-2xl bg-[#ede8df] border border-[#dcd5c7] hover:border-indigo-400 transition-all flex items-center justify-between gap-3 shadow-xs"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-black font-mono text-indigo-600">{r.room_code}</span>
-                      <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-700">
+                      <span className="text-sm font-black font-mono text-indigo-700">{r.room_code}</span>
+                      <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-white border border-[#dcd5c7] text-stone-700">
                         {r.room_type}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 font-medium mt-1 truncate">
+                    <p className="text-xs text-stone-600 font-medium mt-1 truncate">
                       Host: {r.host_username} • {r.member_count}/{r.max_players} Players
                     </p>
                   </div>
@@ -351,9 +349,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Online Friends Widget (1 Col) */}
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-md space-y-4">
+        <div className="bg-[#faf8f4] border border-[#dcd5c7] rounded-3xl p-6 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+            <h3 className="text-base font-black text-stone-900 flex items-center gap-2">
               <Users className="w-5 h-5 text-emerald-600" /> Online Friends ({onlineFriends.length})
             </h3>
             <button onClick={onOpenFriendsModal} className="text-xs text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer">
@@ -362,8 +360,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {onlineFriends.length === 0 ? (
-            <div className="py-10 text-center text-slate-500 text-xs font-semibold">
-              <Users className="w-8 h-8 mx-auto mb-2 text-slate-300" />
+            <div className="py-10 text-center text-stone-500 text-xs font-semibold">
+              <Users className="w-8 h-8 mx-auto mb-2 text-stone-300" />
               No friends online right now. Add friends from the Friends Hub!
             </div>
           ) : (
@@ -371,16 +369,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {onlineFriends.slice(0, 5).map((f) => (
                 <div
                   key={f.id}
-                  className="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3 shadow-xs"
+                  className="p-3 rounded-2xl bg-[#ede8df] border border-[#dcd5c7] flex items-center justify-between gap-3 shadow-xs"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <div className="relative">
-                      <img src={f.avatar} alt={f.username} className="w-9 h-9 rounded-xl bg-white border border-slate-200 object-cover" />
+                      <img src={f.avatar} alt={f.username} className="w-9 h-9 rounded-xl bg-white border border-[#dcd5c7] object-cover" />
                       <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-black text-slate-800 truncate">{f.username}</p>
-                      <p className="text-[10px] text-emerald-600 font-bold capitalize">{f.status}</p>
+                      <p className="text-xs font-black text-stone-900 truncate">{f.username}</p>
+                      <p className="text-[10px] text-emerald-700 font-bold capitalize">{f.status}</p>
                     </div>
                   </div>
 
@@ -390,7 +388,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       openDirectChat(f);
                     }}
                     title="Chat"
-                    className="p-2 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all cursor-pointer"
+                    className="p-2 rounded-xl bg-white text-indigo-700 hover:bg-indigo-600 hover:text-white transition-all border border-[#dcd5c7] cursor-pointer"
                   >
                     <MessageSquare className="w-4 h-4" />
                   </button>
@@ -405,22 +403,22 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* CREATE ROOM MODAL */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-          <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl space-y-5">
-            <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
+          <div className="w-full max-w-md bg-[#faf8f4] border border-[#dcd5c7] rounded-3xl p-6 shadow-2xl space-y-5">
+            <h3 className="text-xl font-black text-stone-900 flex items-center gap-2">
               <Plus className="w-5 h-5 text-indigo-600" /> Create Game Room
             </h3>
 
             {/* Game Type Selection */}
             <div className="space-y-2">
-              <label className="text-xs font-black text-slate-600 uppercase tracking-wider">Select Game</label>
+              <label className="text-xs font-black text-stone-600 uppercase tracking-wider">Select Game</label>
               <div className="grid grid-cols-3 gap-2">
                 <button
                   type="button"
                   onClick={() => setSelectedGameType('ludo')}
                   className={`p-3 rounded-2xl border-2 flex flex-col items-center text-center transition-all cursor-pointer ${
                     selectedGameType === 'ludo'
-                      ? 'bg-red-50 border-red-500 text-red-600 shadow-sm'
-                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                      ? 'bg-red-50 border-red-500 text-red-700 shadow-sm'
+                      : 'bg-[#ede8df] border-[#dcd5c7] text-stone-700 hover:border-stone-400'
                   }`}
                 >
                   <Crown className="w-5 h-5 mb-1" />
@@ -431,8 +429,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setSelectedGameType('snakes')}
                   className={`p-3 rounded-2xl border-2 flex flex-col items-center text-center transition-all cursor-pointer ${
                     selectedGameType === 'snakes'
-                      ? 'bg-emerald-50 border-emerald-500 text-emerald-600 shadow-sm'
-                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                      ? 'bg-emerald-50 border-emerald-500 text-emerald-700 shadow-sm'
+                      : 'bg-[#ede8df] border-[#dcd5c7] text-stone-700 hover:border-stone-400'
                   }`}
                 >
                   <Sparkles className="w-5 h-5 mb-1" />
@@ -443,8 +441,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setSelectedGameType('music')}
                   className={`p-3 rounded-2xl border-2 flex flex-col items-center text-center transition-all cursor-pointer ${
                     selectedGameType === 'music'
-                      ? 'bg-pink-50 border-pink-500 text-pink-600 shadow-sm'
-                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                      ? 'bg-pink-50 border-pink-500 text-pink-700 shadow-sm'
+                      : 'bg-[#ede8df] border-[#dcd5c7] text-stone-700 hover:border-stone-400'
                   }`}
                 >
                   <Music className="w-5 h-5 mb-1" />
@@ -456,7 +454,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             {/* Max Players */}
             {selectedGameType === 'ludo' && (
               <div className="space-y-2">
-                <label className="text-xs font-black text-slate-600 uppercase tracking-wider">Player Capacity</label>
+                <label className="text-xs font-black text-stone-600 uppercase tracking-wider">Player Capacity</label>
                 <div className="flex gap-2">
                   {[2, 3, 4, 5, 6].map((num) => (
                     <button
@@ -466,7 +464,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       className={`flex-1 py-2 rounded-xl text-xs font-black border-2 transition-all cursor-pointer ${
                         selectedMaxPlayers === num
                           ? 'bg-indigo-600 border-indigo-600 text-white'
-                          : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                          : 'bg-[#ede8df] border-[#dcd5c7] text-stone-700 hover:border-stone-400'
                       }`}
                     >
                       {num}P
@@ -477,18 +475,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
             )}
 
             {/* Privacy Toggle */}
-            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#ede8df] border border-[#dcd5c7]">
               <div className="flex items-center gap-2.5">
                 {isPrivateRoom ? <Lock className="w-4 h-4 text-indigo-600" /> : <Globe className="w-4 h-4 text-emerald-600" />}
                 <div>
-                  <p className="text-xs font-black text-slate-900">{isPrivateRoom ? 'Private Room' : 'Public Room'}</p>
-                  <p className="text-[10px] font-semibold text-slate-500">{isPrivateRoom ? 'Join with 6-char code only' : 'Visible on public dashboard'}</p>
+                  <p className="text-xs font-black text-stone-900">{isPrivateRoom ? 'Private Room' : 'Public Room'}</p>
+                  <p className="text-[10px] font-semibold text-stone-600">{isPrivateRoom ? 'Join with 6-char code only' : 'Visible on public dashboard'}</p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setIsPrivateRoom(!isPrivateRoom)}
-                className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${isPrivateRoom ? 'bg-indigo-600' : 'bg-slate-300'}`}
+                className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${isPrivateRoom ? 'bg-indigo-600' : 'bg-stone-300'}`}
               >
                 <span className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform ${isPrivateRoom ? 'right-1' : 'left-1'}`} />
               </button>
@@ -499,7 +497,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <button
                 type="button"
                 onClick={() => setShowCreateModal(false)}
-                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-[#ede8df] hover:bg-[#e4ddcf] text-stone-800 text-xs font-bold cursor-pointer"
               >
                 Cancel
               </button>

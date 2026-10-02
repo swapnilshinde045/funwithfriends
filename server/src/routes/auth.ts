@@ -104,16 +104,44 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const user = db.prepare('SELECT * FROM users WHERE LOWER(username) = LOWER(?) OR LOWER(email) = LOWER(?)').get(login, login) as (User & { password_hash: string }) | undefined;
+    const cleanLogin = login.trim();
+    const cleanPassword = password.trim();
+
+    let user = db.prepare('SELECT * FROM users WHERE LOWER(username) = LOWER(?) OR LOWER(email) = LOWER(?)').get(cleanLogin, cleanLogin) as (User & { password_hash: string }) | undefined;
+
+    // Fallback: Check Supabase PostgreSQL if not in local SQLite cache
+    if (!user) {
+      try {
+        const { supabase } = await import('../db/supabase.js');
+        const { data } = await supabase
+          .from('users')
+          .select('*')
+          .or(`username.ilike.${cleanLogin},email.ilike.${cleanLogin}`)
+          .limit(1)
+          .maybeSingle();
+
+        if (data && data.password_hash) {
+          // Cache in local SQLite
+          db.prepare(`
+            INSERT OR REPLACE INTO users (id, username, email, password_hash, avatar, role, bio, status, last_seen)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+          `).run(data.id, data.username, data.email, data.password_hash, data.avatar, data.role || 'user', data.bio || '', data.status || 'online');
+
+          user = data as (User & { password_hash: string });
+        }
+      } catch (sbErr) {
+        console.error('Supabase login fallback check notice:', sbErr);
+      }
+    }
 
     if (!user) {
-      res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Invalid username/email or password' });
       return;
     }
 
-    const isMatch = await bcrypt.compare(password, user.password_hash);
+    const isMatch = await bcrypt.compare(cleanPassword, user.password_hash);
     if (!isMatch) {
-      res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Invalid username/email or password' });
       return;
     }
 
