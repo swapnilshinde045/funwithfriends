@@ -1,10 +1,11 @@
 import { Server, Socket } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/database.js';
+import { supabase } from '../db/supabase.js';
 
 export function registerChatHandlers(io: Server, socket: Socket) {
   // Send Room Message
-  socket.on('send_room_message', ({ roomId, senderUser, message, replyToId }) => {
+  socket.on('send_room_message', async ({ roomId, senderUser, message, replyToId }) => {
     try {
       if (!roomId || !senderUser || !message.trim()) return;
 
@@ -15,6 +16,21 @@ export function registerChatHandlers(io: Server, socket: Socket) {
         INSERT INTO messages (id, room_id, sender_id, message, reply_to_id)
         VALUES (?, ?, ?, ?, ?)
       `).run(messageId, roomId, senderUser.id, cleanMessage, replyToId || null);
+
+      // Sync to Supabase
+      try {
+        if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+          await supabase.from('messages').insert({
+            id: messageId,
+            room_id: roomId,
+            sender_id: senderUser.id,
+            message: cleanMessage,
+            reply_to_id: replyToId || null,
+          });
+        }
+      } catch (err) {
+        console.error('Supabase message sync notice:', err);
+      }
 
       const payload = {
         id: messageId,
@@ -59,7 +75,7 @@ export function registerChatHandlers(io: Server, socket: Socket) {
   });
 
   // Send Direct Message (1-to-1)
-  socket.on('send_direct_message', ({ senderUser, receiverId, message }) => {
+  socket.on('send_direct_message', async ({ senderUser, receiverId, message }) => {
     try {
       if (!senderUser || !receiverId || !message.trim()) return;
 
@@ -70,6 +86,21 @@ export function registerChatHandlers(io: Server, socket: Socket) {
         INSERT INTO messages (id, room_id, sender_id, receiver_id, message)
         VALUES (?, NULL, ?, ?, ?)
       `).run(messageId, senderUser.id, receiverId, cleanMessage);
+
+      // Sync to Supabase
+      try {
+        if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+          await supabase.from('messages').insert({
+            id: messageId,
+            room_id: null,
+            sender_id: senderUser.id,
+            receiver_id: receiverId,
+            message: cleanMessage,
+          });
+        }
+      } catch (err) {
+        console.error('Supabase direct message sync notice:', err);
+      }
 
       const payload = {
         id: messageId,
@@ -110,11 +141,17 @@ export function registerChatHandlers(io: Server, socket: Socket) {
   });
 
   // Delete own message
-  socket.on('delete_message', ({ messageId, userId, roomId }) => {
+  socket.on('delete_message', async ({ messageId, userId, roomId }) => {
     try {
       const msg = db.prepare('SELECT sender_id FROM messages WHERE id = ?').get(messageId) as any;
       if (msg && msg.sender_id === userId) {
         db.prepare('DELETE FROM messages WHERE id = ?').run(messageId);
+        try {
+          if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+            await supabase.from('messages').delete().eq('id', messageId);
+          }
+        } catch (e) {}
+
         if (roomId) {
           io.to(roomId).emit('message_deleted', { messageId });
         }
