@@ -40,7 +40,22 @@ app.use('/api/rooms', roomRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Health check endpoint
+// Root & Health check endpoints
+app.get('/', (_req, res) => {
+  res.json({
+    status: 'online',
+    service: 'PlaySphere Multiplayer & Social Backend',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      rooms: '/api/rooms',
+      friends: '/api/friends',
+      users: '/api/users'
+    }
+  });
+});
+
 app.get('/api/health', (_req, res) => {
   res.json({
     status: 'healthy',
