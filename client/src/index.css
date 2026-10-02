@@ -2,40 +2,53 @@
 
 @layer base {
   body {
-    background: radial-gradient(circle at 50% 30%, #1a2838 0%, #0d1522 60%, #080d15 100%);
-    color: #f8fafc;
+    background-color: #f8fafc;
+    background-image: radial-gradient(#e2e8f0 1.2px, transparent 1.2px), radial-gradient(#e2e8f0 1.2px, #f8fafc 1.2px);
+    background-size: 48px 48px;
+    background-position: 0 0, 24px 24px;
+    color: #0f172a;
     font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
   }
 
-  /* Custom scrollbar */
+  /* Custom Clean Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: #f1f5f9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: #cbd5e1;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: #94a3b8;
   }
 }
 
-/* Ludo King Arcade Aesthetic Styles */
-.arcade-card {
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-  border: 2px solid #334155;
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+/* Classic Clean Cards */
+.glass-card, .arcade-card, .classic-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
 }
 
+.classic-card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.classic-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  border-color: #cbd5e1;
+}
+
+/* Ludo King Classic Board Frame */
 .arcade-board-frame {
-  background: linear-gradient(135deg, #2a1b14 0%, #452416 30%, #20130d 70%, #150b07 100%);
+  background: linear-gradient(135deg, #4a2810 0%, #6e3a17 30%, #3d1e0a 70%, #2b1305 100%);
   border: 6px solid #d4a373;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -4px 8px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* 3D Tactile Arcade Buttons */
@@ -43,61 +56,77 @@
   background: linear-gradient(180deg, #22c55e 0%, #16a34a 60%, #15803d 100%);
   border-top: 2px solid #86efac;
   border-bottom: 4px solid #14532d;
-  box-shadow: 0 6px 0 #14532d, 0 10px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 0 #14532d, 0 8px 15px rgba(22, 163, 74, 0.3);
   transition: all 0.1s ease-in-out;
 }
 .btn-arcade-green:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 0 #14532d, 0 14px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 7px 0 #14532d, 0 12px 20px rgba(22, 163, 74, 0.4);
 }
 .btn-arcade-green:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #14532d, 0 4px 6px rgba(0, 0, 0, 0.4);
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #14532d, 0 4px 6px rgba(22, 163, 74, 0.3);
+}
+
+.btn-arcade-indigo {
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 60%, #4338ca 100%);
+  border-top: 2px solid #a5b4fc;
+  border-bottom: 4px solid #312e81;
+  box-shadow: 0 5px 0 #312e81, 0 8px 15px rgba(79, 70, 229, 0.3);
+  transition: all 0.1s ease-in-out;
+}
+.btn-arcade-indigo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #312e81, 0 12px 20px rgba(79, 70, 229, 0.4);
+}
+.btn-arcade-indigo:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #312e81, 0 4px 6px rgba(79, 70, 229, 0.3);
 }
 
 .btn-arcade-amber {
   background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 60%, #d97706 100%);
   border-top: 2px solid #fef08a;
   border-bottom: 4px solid #78350f;
-  box-shadow: 0 6px 0 #78350f, 0 10px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 0 #78350f, 0 8px 15px rgba(245, 158, 11, 0.3);
   transition: all 0.1s ease-in-out;
 }
 .btn-arcade-amber:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 0 #78350f, 0 14px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 7px 0 #78350f, 0 12px 20px rgba(245, 158, 11, 0.4);
 }
 .btn-arcade-amber:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #78350f, 0 4px 6px rgba(0, 0, 0, 0.4);
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #78350f, 0 4px 6px rgba(245, 158, 11, 0.3);
 }
 
 /* 3D Pawn / Token Spheres */
 .pawn-3d-red {
   background: radial-gradient(circle at 35% 30%, #ff8a8a 0%, #ef4444 45%, #b91c1c 85%, #7f1d1d 100%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 2px 3px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.7);
 }
 .pawn-3d-green {
   background: radial-gradient(circle at 35% 30%, #86efac 0%, #22c55e 45%, #15803d 85%, #14532d 100%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 2px 3px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.7);
 }
 .pawn-3d-yellow {
   background: radial-gradient(circle at 35% 30%, #fef08a 0%, #eab308 45%, #ca8a04 85%, #713f12 100%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 2px 3px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.7);
 }
 .pawn-3d-blue {
   background: radial-gradient(circle at 35% 30%, #93c5fd 0%, #3b82f6 45%, #1d4ed8 85%, #1e3a8a 100%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 2px 3px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.7);
 }
 
 /* 3D Dice styling */
 .dice-cube {
   width: 52px;
   height: 52px;
-  background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 60%, #e2e8f0 100%);
   border: 2px solid #cbd5e1;
   border-bottom: 4px solid #94a3b8;
   border-radius: 16px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), inset 0 2px 2px rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), inset 0 2px 2px rgba(255, 255, 255, 0.9);
 }
 
 @keyframes dice-rolling {
@@ -112,16 +141,6 @@
   animation: dice-rolling 0.55s ease-in-out;
 }
 
-/* Pulsing Turn Indicator Ring */
-@keyframes turn-ring-pulse {
-  0%, 100% { box-shadow: 0 0 0 3px #f59e0b, 0 0 16px rgba(245, 158, 11, 0.6); }
-  50% { box-shadow: 0 0 0 6px #fbbf24, 0 0 28px rgba(251, 191, 36, 0.9); }
-}
-
-.turn-ring-active {
-  animation: turn-ring-pulse 1.4s infinite ease-in-out;
-}
-
 @keyframes bounce-soft {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
@@ -132,11 +151,10 @@
 }
 
 @keyframes token-glow-jump {
-  0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 4px #ffffff); }
-  50% { transform: scale(1.25) translateY(-4px); filter: drop-shadow(0 0 10px #ffffff); }
+  0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 3px #ffffff); }
+  50% { transform: scale(1.25) translateY(-4px); filter: drop-shadow(0 0 8px #ffffff); }
 }
 
 .token-movable {
   animation: token-glow-jump 0.8s ease-in-out infinite;
 }
-

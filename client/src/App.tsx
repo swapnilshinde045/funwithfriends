@@ -28,9 +28,9 @@ const MainAppContent: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#07090e] flex flex-col items-center justify-center space-y-4">
-        <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-sm font-bold text-slate-400">Loading PlaySphere...</p>
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center space-y-4">
+        <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        <p className="text-sm font-bold text-slate-600">Loading PlaySphere...</p>
       </div>
     );
   }
@@ -42,7 +42,7 @@ const MainAppContent: React.FC = () => {
   // Active Game Room takes over full view if player is in a room
   if (activeRoomCode) {
     return (
-      <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col">
+      <div className="min-h-screen bg-slate-100 text-slate-900 flex flex-col">
         <Navbar
           currentTab={currentTab}
           setCurrentTab={(t) => {
@@ -73,7 +73,7 @@ const MainAppContent: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col selection:bg-indigo-600 selection:text-white">
       <Navbar
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}

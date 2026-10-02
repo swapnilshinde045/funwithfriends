@@ -7,7 +7,6 @@ import {
   UserMinus, 
   Crown, 
   Users, 
-  Sparkles,
   MessageCircle,
   Gamepad2
 } from 'lucide-react';
@@ -27,12 +26,12 @@ interface RoomLobbyViewProps {
 }
 
 const COLOR_SLOTS = [
-  { name: 'Red', hex: '#e52521', ring: 'ring-red-500', border: 'border-red-500', text: 'text-red-400', badge: 'bg-red-500' },
-  { name: 'Green', hex: '#009b4c', ring: 'ring-emerald-500', border: 'border-emerald-500', text: 'text-emerald-400', badge: 'bg-emerald-600' },
-  { name: 'Yellow', hex: '#fdb813', ring: 'ring-amber-400', border: 'border-amber-400', text: 'text-amber-400', badge: 'bg-amber-500' },
-  { name: 'Blue', hex: '#0072bc', ring: 'ring-blue-500', border: 'border-blue-500', text: 'text-blue-400', badge: 'bg-blue-600' },
-  { name: 'Purple', hex: '#8b5cf6', ring: 'ring-purple-500', border: 'border-purple-500', text: 'text-purple-400', badge: 'bg-purple-600' },
-  { name: 'Orange', hex: '#f97316', ring: 'ring-orange-500', border: 'border-orange-500', text: 'text-orange-400', badge: 'bg-orange-500' },
+  { name: 'Red', ring: 'ring-red-500', border: 'border-red-500', text: 'text-red-600', badge: 'bg-red-600' },
+  { name: 'Green', ring: 'ring-emerald-500', border: 'border-emerald-500', text: 'text-emerald-600', badge: 'bg-emerald-600' },
+  { name: 'Yellow', ring: 'ring-amber-400', border: 'border-amber-400', text: 'text-amber-600', badge: 'bg-amber-500' },
+  { name: 'Blue', ring: 'ring-blue-500', border: 'border-blue-500', text: 'text-blue-600', badge: 'bg-blue-600' },
+  { name: 'Purple', ring: 'ring-purple-500', border: 'border-purple-500', text: 'text-purple-600', badge: 'bg-purple-600' },
+  { name: 'Orange', ring: 'ring-orange-500', border: 'border-orange-500', text: 'text-orange-600', badge: 'bg-orange-500' },
 ];
 
 export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
@@ -80,44 +79,44 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
   return (
     <div className="space-y-5 select-none">
       
-      {/* Lobby Banner Card (Arcade Gold Trim) */}
-      <div className="relative overflow-hidden arcade-card rounded-3xl p-5 sm:p-6 shadow-2xl border-2 border-slate-700">
+      {/* Lobby Banner Card */}
+      <div className="relative overflow-hidden bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-md">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 uppercase tracking-widest flex items-center gap-1">
+              <span className="text-xs font-black px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase tracking-widest flex items-center gap-1">
                 <Gamepad2 className="w-3.5 h-3.5" />
-                {room.room_type.toUpperCase()} ARENA
+                {room.room_type.toUpperCase()} LOBBY
               </span>
-              <span className="text-xs font-bold text-slate-300">
+              <span className="text-xs font-bold text-slate-500">
                 {members.length}/{room.max_players} Players
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-2">
               Game Room Lobby
             </h1>
           </div>
 
           {/* Room Code & WhatsApp Actions */}
           <div className="flex flex-wrap items-center gap-2.5">
-            <div className="flex items-center bg-slate-950 border-2 border-amber-400/60 rounded-2xl px-4 py-2 shadow-inner">
+            <div className="flex items-center bg-slate-50 border-2 border-indigo-200 rounded-2xl px-4 py-2 shadow-xs">
               <div className="mr-3">
-                <p className="text-[10px] text-amber-400 uppercase tracking-wider font-black">Room Code</p>
-                <p className="text-xl font-black tracking-widest text-white">{room.room_code}</p>
+                <p className="text-[10px] text-indigo-600 uppercase tracking-wider font-black">Room Code</p>
+                <p className="text-xl font-black tracking-widest text-slate-900">{room.room_code}</p>
               </div>
               <button
                 onClick={handleCopyCode}
                 title="Copy Room Code"
-                className="p-2 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-indigo-100 hover:bg-indigo-600 text-indigo-700 hover:text-white transition-all cursor-pointer"
               >
-                {copiedCode ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                {copiedCode ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
               </button>
             </div>
 
             {/* WhatsApp Share Button */}
             <button
               onClick={handleWhatsAppShare}
-              className="px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs sm:text-sm flex items-center gap-2 shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
               WhatsApp Invite
@@ -126,16 +125,16 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
             {/* Copy Invite Link */}
             <button
               onClick={handleCopyLink}
-              className="px-3.5 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+              className="px-3.5 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
             >
-              {copiedLink ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
+              {copiedLink ? <Check className="w-4 h-4 text-emerald-600" /> : <Share2 className="w-4 h-4" />}
               {copiedLink ? 'Copied' : 'Copy Link'}
             </button>
 
             {/* Invite Online Friends */}
             <button
               onClick={onOpenFriendsInvite}
-              className="px-3.5 py-2.5 rounded-2xl bg-amber-500/20 hover:bg-amber-500/40 border border-amber-400/50 text-amber-300 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+              className="px-3.5 py-2.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
             >
               <Users className="w-4 h-4" />
               Invite
@@ -146,9 +145,9 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
 
       {/* Players Slot Grid */}
       <div className="space-y-3">
-        <h2 className="text-sm font-black text-slate-300 uppercase tracking-wider flex items-center gap-2">
-          <Users className="w-4 h-4 text-amber-400" />
-          Players in Lobby ({members.length}/{room.max_players})
+        <h2 className="text-sm font-black text-slate-700 uppercase tracking-wider flex items-center gap-2">
+          <Users className="w-4 h-4 text-indigo-600" />
+          Players inside lobby ({members.length}/{room.max_players})
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -163,15 +162,15 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
               return (
                 <div
                   key={member.user_id}
-                  className={`relative arcade-card p-4 rounded-3xl border-2 transition-all flex flex-col items-center text-center ${
+                  className={`relative bg-white p-4 rounded-3xl border-2 transition-all flex flex-col items-center text-center shadow-xs ${
                     member.is_ready
-                      ? 'border-emerald-400 shadow-emerald-500/20'
-                      : 'border-slate-700'
+                      ? 'border-emerald-500 shadow-emerald-500/10'
+                      : 'border-slate-200'
                   }`}
                 >
                   {/* Host Crown */}
                   {isMemberHost && (
-                    <div className="absolute top-3 left-3 p-1 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-400/50">
+                    <div className="absolute top-3 left-3 p-1 rounded-lg bg-amber-100 text-amber-600 border border-amber-300">
                       <Crown className="w-3.5 h-3.5" />
                     </div>
                   )}
@@ -181,7 +180,7 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
                     <button
                       onClick={() => onKickPlayer(member.user_id)}
                       title="Kick player from room"
-                      className="absolute top-3 right-3 p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 border border-transparent hover:border-rose-500/40 transition-all cursor-pointer"
+                      className="absolute top-3 right-3 p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-all cursor-pointer"
                     >
                       <UserMinus className="w-3.5 h-3.5" />
                     </button>
@@ -199,7 +198,7 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
                     <img
                       src={member.avatar}
                       alt={member.username}
-                      className={`w-16 h-16 rounded-2xl bg-slate-950 object-cover ring-4 ${colorSlot.ring} shadow-xl group-hover:ring-amber-400 transition-all`}
+                      className={`w-16 h-16 rounded-2xl bg-slate-50 object-cover ring-4 ${colorSlot.ring} shadow-md group-hover:ring-indigo-600 transition-all`}
                     />
                     <span className={`absolute -bottom-1.5 -right-1.5 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-white ${colorSlot.badge}`}>
                       P{idx + 1}
@@ -211,9 +210,9 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
                       sound.playClick();
                       setSelectedPlayerForModal({ id: member.user_id, username: member.username, avatar: member.avatar });
                     }}
-                    className="font-black text-base text-white truncate max-w-[140px] cursor-pointer hover:text-amber-400 transition-colors"
+                    className="font-black text-base text-slate-900 truncate max-w-[140px] cursor-pointer hover:text-indigo-600 transition-colors"
                   >
-                    {member.username} {isMe && <span className="text-xs text-amber-300">(You)</span>}
+                    {member.username} {isMe && <span className="text-xs text-indigo-600 font-bold">(You)</span>}
                   </p>
 
                   <p className={`text-xs font-bold mt-0.5 ${colorSlot.text}`}>
@@ -223,15 +222,15 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
                   {/* Ready Status Badge */}
                   <div className="mt-3">
                     {isMemberHost ? (
-                      <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/50">
+                      <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
                         Room Host
                       </span>
                     ) : member.is_ready ? (
-                      <span className="text-xs font-black px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/50 flex items-center gap-1">
+                      <span className="text-xs font-black px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
                         <Check className="w-3 h-3" /> Ready
                       </span>
                     ) : (
-                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-500 border border-slate-200">
                         Not Ready
                       </span>
                     )}
@@ -245,15 +244,15 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
               <div
                 key={`empty-${idx}`}
                 onClick={onOpenFriendsInvite}
-                className="arcade-card border-2 border-dashed border-slate-700 hover:border-amber-400/60 rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all group min-h-[190px]"
+                className="bg-slate-50 border-2 border-dashed border-slate-300 hover:border-indigo-400 rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all group min-h-[190px]"
               >
-                <div className="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 group-hover:text-amber-400 group-hover:border-amber-400/50 transition-all mb-2">
+                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-indigo-600 group-hover:border-indigo-300 transition-all mb-2 shadow-xs">
                   <Users className="w-5 h-5" />
                 </div>
-                <p className="text-xs font-black text-slate-400 group-hover:text-slate-200">
+                <p className="text-xs font-black text-slate-600 group-hover:text-slate-900">
                   Empty Slot #{idx + 1}
                 </p>
-                <p className="text-[11px] text-amber-400 font-bold mt-1">Tap to invite friend</p>
+                <p className="text-[11px] text-indigo-600 font-bold mt-1">Tap to invite friend</p>
               </div>
             );
           })}
@@ -261,10 +260,10 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
       </div>
 
       {/* Lobby Bottom Actions */}
-      <div className="p-4 sm:p-5 arcade-card rounded-3xl flex flex-wrap items-center justify-between gap-4 border-2 border-slate-700">
+      <div className="p-4 sm:p-5 bg-white border border-slate-200 rounded-3xl flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <button
           onClick={onLeaveRoom}
-          className="px-5 py-2.5 rounded-2xl bg-slate-800 hover:bg-rose-950/40 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-500/40 font-bold text-sm transition-all cursor-pointer"
+          className="px-5 py-2.5 rounded-2xl bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-700 border border-slate-300 hover:border-rose-200 font-bold text-sm transition-all cursor-pointer"
         >
           Leave Room
         </button>
@@ -273,9 +272,9 @@ export const RoomLobbyView: React.FC<RoomLobbyViewProps> = ({
           {!isHost && (
             <button
               onClick={onToggleReady}
-              className={`px-7 py-3 rounded-2xl font-black text-sm transition-all shadow-lg flex items-center gap-2 cursor-pointer ${
+              className={`px-7 py-3 rounded-2xl font-black text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer ${
                 isReady
-                  ? 'bg-slate-800 border border-emerald-500 text-emerald-400 hover:bg-slate-700'
+                  ? 'bg-slate-100 border border-emerald-500 text-emerald-700 hover:bg-slate-200'
                   : 'btn-arcade-green text-white'
               }`}
             >

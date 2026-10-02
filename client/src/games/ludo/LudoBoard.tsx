@@ -8,8 +8,7 @@ import {
   Star, 
   Clock, 
   MessageCircle, 
-  Flame,
-  Volume2
+  Flame
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSocket } from '../../context/SocketContext';
@@ -75,7 +74,7 @@ const COLOR_THEME: Record<LudoColor, {
     trackBg: 'bg-[#e52521]', 
     border: 'border-[#e52521]', 
     pawnClass: 'pawn-3d-red',
-    badgeBg: 'bg-red-500'
+    badgeBg: 'bg-red-600'
   },
   green: { 
     name: 'Green', 
@@ -236,7 +235,7 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
 
   // 3D Dice Face Rendering Helper
   const renderDicePips = (val: number | null) => {
-    if (!val) return <span className="text-slate-500 text-xs font-black">ROLL</span>;
+    if (!val) return <span className="text-slate-600 text-xs font-black">ROLL</span>;
 
     const pipClass = "w-2.5 h-2.5 rounded-full bg-slate-900 shadow-inner";
     switch (val) {
@@ -270,10 +269,10 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
     const theme = COLOR_THEME[player.color];
 
     return (
-      <div className={`flex items-center gap-2 p-2 rounded-2xl transition-all ${
+      <div className={`flex items-center gap-2.5 p-2 rounded-2xl transition-all ${
         isPlayerTurn
-          ? 'bg-slate-900 border-2 border-amber-400 ring-4 ring-amber-400/40 shadow-2xl scale-102 z-20'
-          : 'bg-slate-900/90 border border-slate-700'
+          ? 'bg-amber-50 border-2 border-amber-500 ring-4 ring-amber-200 shadow-md scale-102 z-20'
+          : 'bg-white border border-slate-200 shadow-xs'
       }`}>
         <div 
           onClick={() => {
@@ -286,8 +285,8 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
           <img
             src={player.avatar}
             alt={player.username}
-            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl object-cover bg-slate-950 border-2 ${
-              isPlayerTurn ? 'border-amber-400 ring-2 ring-amber-300' : theme.border
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl object-cover bg-slate-100 border-2 ${
+              isPlayerTurn ? 'border-amber-500 ring-2 ring-amber-300' : theme.border
             } group-hover:scale-105 transition-all`}
           />
           <span className={`absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-full text-[9px] font-black uppercase text-white ${theme.badgeBg}`}>
@@ -308,20 +307,20 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
               sound.playClick();
               setSelectedPlayerForModal({ id: player.userId, username: player.username, avatar: player.avatar });
             }}
-            className="text-xs font-black text-white truncate cursor-pointer hover:text-amber-400 transition-colors"
+            className="text-xs font-black text-slate-900 truncate cursor-pointer hover:text-indigo-600 transition-colors"
           >
-            {player.username} {isThisMe && <span className="text-[10px] text-amber-300 font-bold">(You)</span>}
+            {player.username} {isThisMe && <span className="text-[10px] text-indigo-600 font-bold">(You)</span>}
           </p>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <span className={`w-2.5 h-2.5 rounded-full ${theme.baseBg} shadow`} />
-            <span className="text-[10px] text-slate-300 font-bold capitalize">{player.color}</span>
+            <span className={`w-2.5 h-2.5 rounded-full ${theme.baseBg} shadow-xs`} />
+            <span className="text-[10px] text-slate-500 font-bold capitalize">{player.color}</span>
           </div>
         </div>
 
         {/* Turn Timer Badge */}
         {isPlayerTurn && (
-          <div className="ml-auto px-2 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/50 text-[11px] font-black flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-amber-400 animate-spin" />
+          <div className="ml-auto px-2 py-1 rounded-xl bg-amber-500 text-white text-[11px] font-black flex items-center gap-1 shadow-xs">
+            <Clock className="w-3.5 h-3.5 text-white animate-spin" />
             {turnTimeRemaining}s
           </div>
         )}
@@ -333,33 +332,33 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
     <div className="w-full flex flex-col items-center space-y-3 max-w-2xl mx-auto select-none pb-6">
       
       {/* Top Banner: Turn Alert & Quick Reactions */}
-      <div className="w-full arcade-card rounded-2xl px-4 py-2.5 flex items-center justify-between gap-2 shadow-xl border border-slate-700">
+      <div className="w-full bg-white rounded-2xl px-4 py-2.5 flex items-center justify-between gap-2 shadow-sm border border-slate-200">
         <div className="flex items-center gap-2">
-          <div className={`p-2 rounded-xl ${COLOR_THEME[currentPlayer.color]?.badgeBg || 'bg-amber-500'} text-white shadow`}>
+          <div className={`p-2 rounded-xl ${COLOR_THEME[currentPlayer.color]?.badgeBg || 'bg-amber-500'} text-white shadow-xs`}>
             <Crown className="w-4 h-4" />
           </div>
           <div className="min-w-0">
-            <p className="text-[10px] font-black text-amber-400 uppercase tracking-wider">Current Turn</p>
-            <p className="text-xs sm:text-sm font-black text-white truncate">
+            <p className="text-[10px] font-black text-slate-500 uppercase tracking-wider">Active Turn</p>
+            <p className="text-xs sm:text-sm font-black text-slate-900 truncate">
               {currentPlayer?.username} ({COLOR_THEME[currentPlayer?.color]?.name})
             </p>
           </div>
         </div>
 
         {/* Action log message */}
-        <div className="hidden sm:block bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-1.5 max-w-xs text-center">
-          <p className="text-[11px] font-bold text-amber-300 truncate">
+        <div className="hidden sm:block bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 max-w-xs text-center">
+          <p className="text-[11px] font-bold text-indigo-600 truncate">
             {gameState.lastAction || 'Roll the dice!'}
           </p>
         </div>
 
         {/* Quick Reactions Bar */}
-        <div className="flex items-center gap-1 bg-slate-950/80 border border-slate-800 p-1 rounded-xl">
+        <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 p-1 rounded-xl">
           {['😂', '🔥', '💀', '🎉', '👑'].map((em) => (
             <button
               key={em}
               onClick={() => sendReaction(em)}
-              className="text-base hover:scale-130 active:scale-95 transition-transform px-1"
+              className="text-base hover:scale-130 active:scale-95 transition-transform px-1 cursor-pointer"
             >
               {em}
             </button>
@@ -376,9 +375,9 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
       {/* ========================================================================= */}
       {/* AUTHENTIC LUDO KING BOARD (Classic Wood Frame & Crisp Ivory Track Grid) */}
       {/* ========================================================================= */}
-      <div className="relative w-full aspect-square max-w-[500px] arcade-board-frame rounded-3xl p-2.5 sm:p-3 shadow-2xl flex flex-col justify-between overflow-hidden">
+      <div className="relative w-full aspect-square max-w-[500px] arcade-board-frame rounded-3xl p-2.5 sm:p-3 shadow-xl flex flex-col justify-between overflow-hidden">
         
-        <div className="relative w-full h-full grid grid-cols-15 grid-rows-15 gap-[1px] bg-slate-400 rounded-2xl p-1 overflow-hidden shadow-inner">
+        <div className="relative w-full h-full grid grid-cols-15 grid-rows-15 gap-[1px] bg-slate-300 rounded-2xl p-1 overflow-hidden shadow-inner">
           
           {/* ================= RED BASE (TOP-LEFT) ================= */}
           <div className="col-span-6 row-span-6 rounded-2xl bg-[#e52521] border-2 border-red-700 p-2 sm:p-3 flex flex-col justify-between shadow-md">
@@ -397,7 +396,7 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
                     className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
                       token.stepCount === -1
                         ? `pawn-3d-red cursor-pointer ${isValid ? 'token-movable ring-4 ring-white z-20' : ''}`
-                        : 'bg-slate-200 border border-slate-300'
+                        : 'bg-slate-100 border border-slate-200'
                     }`}
                   >
                     {token.stepCount === -1 && <span className="text-[10px] sm:text-xs font-black text-white drop-shadow">{token.id + 1}</span>}
@@ -465,7 +464,7 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
                     className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
                       token.stepCount === -1
                         ? `pawn-3d-green cursor-pointer ${isValid ? 'token-movable ring-4 ring-white z-20' : ''}`
-                        : 'bg-slate-200 border border-slate-300'
+                        : 'bg-slate-100 border border-slate-200'
                     }`}
                   >
                     {token.stepCount === -1 && <span className="text-[10px] sm:text-xs font-black text-white drop-shadow">{token.id + 1}</span>}
@@ -517,7 +516,7 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
           </div>
 
           {/* ================= CENTER VICTORY HOME (4-Triangle Classic) ================= */}
-          <div className="col-span-3 row-span-3 rounded-lg bg-slate-900 border-2 border-amber-400 relative overflow-hidden flex items-center justify-center shadow-2xl">
+          <div className="col-span-3 row-span-3 rounded-lg bg-slate-900 border-2 border-amber-400 relative overflow-hidden flex items-center justify-center shadow-md">
             {/* Top Green Triangle */}
             <div 
               className="absolute inset-0 bg-[#009b4c]"
@@ -605,7 +604,7 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
                     className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
                       token.stepCount === -1
                         ? `pawn-3d-blue cursor-pointer ${isValid ? 'token-movable ring-4 ring-white z-20' : ''}`
-                        : 'bg-slate-200 border border-slate-300'
+                        : 'bg-slate-100 border border-slate-200'
                     }`}
                   >
                     {token.stepCount === -1 && <span className="text-[10px] sm:text-xs font-black text-white drop-shadow">{token.id + 1}</span>}
@@ -673,7 +672,7 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
                     className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
                       token.stepCount === -1
                         ? `pawn-3d-yellow cursor-pointer ${isValid ? 'token-movable ring-4 ring-white z-20' : ''}`
-                        : 'bg-slate-200 border border-slate-300'
+                        : 'bg-slate-100 border border-slate-200'
                     }`}
                   >
                     {token.stepCount === -1 && <span className="text-[10px] sm:text-xs font-black text-slate-900 drop-shadow">{token.id + 1}</span>}
@@ -695,7 +694,7 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
       {/* ========================================================================= */}
       {/* 3D TACTILE DICE CONTROLLER & LUDO KING "ROLL" BUTTON */}
       {/* ========================================================================= */}
-      <div className="w-full arcade-card rounded-2xl p-3 sm:p-4 flex items-center justify-between gap-3 shadow-xl border border-slate-700">
+      <div className="w-full bg-white rounded-2xl p-3 sm:p-4 flex items-center justify-between gap-3 shadow-sm border border-slate-200">
         <div className="flex items-center gap-3">
           {/* Animated 3D Dice */}
           <div 
@@ -707,8 +706,8 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
             {renderDicePips(gameState.currentDiceValue)}
           </div>
           <div>
-            <p className="text-[10px] font-black text-amber-400 uppercase tracking-wider">DICE</p>
-            <p className="text-xs sm:text-sm font-black text-white">
+            <p className="text-[10px] font-black text-slate-500 uppercase tracking-wider">DICE</p>
+            <p className="text-xs sm:text-sm font-black text-slate-900">
               {gameState.currentDiceValue ? `Rolled ${gameState.currentDiceValue}!` : isMyTurn ? 'Tap Dice or Roll' : 'Waiting...'}
             </p>
           </div>
@@ -719,17 +718,17 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
           <button
             onClick={handleRollDice}
             disabled={gameState.hasRolled || isRolling}
-            className={`px-6 sm:px-8 py-3 rounded-2xl font-black text-xs sm:text-sm tracking-wider uppercase text-white shadow-xl flex items-center gap-2 transition-all ${
+            className={`px-6 sm:px-8 py-3.5 rounded-2xl font-black text-xs sm:text-sm tracking-wider uppercase text-white shadow-md flex items-center gap-2 transition-all ${
               !gameState.hasRolled && !isRolling
                 ? 'btn-arcade-green cursor-pointer'
-                : 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
+                : 'bg-slate-200 text-slate-400 border border-slate-300 cursor-not-allowed'
             }`}
           >
             <Sparkles className="w-4 h-4" />
             {isRolling ? 'Rolling...' : gameState.hasRolled ? 'Pick Token' : 'Roll Dice!'}
           </button>
         ) : (
-          <div className="text-xs font-bold px-4 py-2.5 rounded-xl bg-slate-800 text-slate-400 border border-slate-700">
+          <div className="text-xs font-bold px-4 py-2.5 rounded-xl bg-slate-100 text-slate-600 border border-slate-200">
             {currentPlayer?.username}'s Turn
           </div>
         )}
@@ -737,15 +736,15 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
 
       {/* GAME OVER PODIUM MODAL */}
       {gameState.status === 'finished' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in zoom-in-95">
-          <div className="w-full max-w-lg arcade-card rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-amber-500/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in zoom-in-95">
+          <div className="w-full max-w-lg bg-white rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-200">
             <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-amber-400 to-yellow-500 text-slate-950 flex items-center justify-center mx-auto shadow-xl animate-bounce-soft">
               <Trophy className="w-8 h-8" />
             </div>
 
             <div>
-              <h2 className="text-2xl font-black text-white">LUDO CHAMPION! 🎉</h2>
-              <p className="text-xs text-amber-300">Congratulations to the podium winners!</p>
+              <h2 className="text-2xl font-black text-slate-900">LUDO CHAMPION! 🎉</h2>
+              <p className="text-xs text-amber-600 font-bold">Congratulations to the podium winners!</p>
             </div>
 
             <div className="space-y-2.5">
@@ -754,17 +753,17 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
                   key={win.userId}
                   className={`p-3.5 rounded-2xl border flex items-center justify-between ${
                     win.rank === 1
-                      ? 'bg-amber-500/20 border-amber-500/50 text-amber-300'
+                      ? 'bg-amber-50 border-amber-300 text-amber-900'
                       : win.rank === 2
-                      ? 'bg-slate-700/30 border-slate-500/50 text-slate-200'
-                      : 'bg-orange-950/20 border-orange-600/40 text-orange-300'
+                      ? 'bg-slate-100 border-slate-300 text-slate-800'
+                      : 'bg-orange-50 border-orange-300 text-orange-900'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-lg font-black">
                       {win.rank === 1 ? '🥇' : win.rank === 2 ? '🥈' : '🥉'}
                     </span>
-                    <span className="font-bold text-sm text-white">{win.username}</span>
+                    <span className="font-bold text-sm text-slate-900">{win.username}</span>
                   </div>
                   <span className="text-xs font-black uppercase tracking-wider">
                     {win.rank === 1 ? '1st Place' : win.rank === 2 ? '2nd Place' : `${win.rank}th Place`}
@@ -776,13 +775,13 @@ export const LudoBoard: React.FC<LudoBoardProps> = ({
             <div className="flex items-center justify-center gap-3 pt-3">
               <button
                 onClick={onRematch}
-                className="btn-arcade-green px-6 py-3 rounded-2xl text-white font-black text-sm shadow-lg flex items-center gap-2 cursor-pointer"
+                className="btn-arcade-green px-6 py-3 rounded-2xl text-white font-black text-sm shadow-md flex items-center gap-2 cursor-pointer"
               >
                 <RotateCcw className="w-4 h-4" /> Rematch
               </button>
               <button
                 onClick={onExit}
-                className="px-6 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm border border-slate-700 transition-all cursor-pointer"
+                className="px-6 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm border border-slate-300 transition-all cursor-pointer"
               >
                 Dashboard
               </button>

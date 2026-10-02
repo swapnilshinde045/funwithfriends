@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  User as UserIcon, 
   Trophy, 
   Gamepad2, 
   Users, 
@@ -8,8 +7,6 @@ import {
   Calendar, 
   Check, 
   Edit3, 
-  Flame,
-  Award,
   Crown
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -77,10 +74,10 @@ export const ProfilePage: React.FC = () => {
   if (!user) return null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in select-none">
       
       {/* Profile Header Hero */}
-      <div className="glass-card bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 relative z-10">
           
           {/* Avatar with Status Ring */}
@@ -88,9 +85,9 @@ export const ProfilePage: React.FC = () => {
             <img
               src={selectedAvatar}
               alt={user.username}
-              className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-slate-950 object-cover ring-4 ring-indigo-500/50 shadow-2xl"
+              className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-slate-50 object-cover ring-4 ring-indigo-600/20 border border-slate-200 shadow-md"
             />
-            <span className="absolute -bottom-2 -right-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500 text-white shadow-lg ring-2 ring-slate-900">
+            <span className="absolute -bottom-2 -right-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500 text-white shadow-sm ring-2 ring-white">
               Online
             </span>
           </div>
@@ -98,14 +95,14 @@ export const ProfilePage: React.FC = () => {
           {/* User Info Details */}
           <div className="flex-1 text-center md:text-left space-y-2">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
-              <h1 className="text-2xl sm:text-3xl font-black text-white">{user.username}</h1>
-              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 uppercase tracking-widest">
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900">{user.username}</h1>
+              <span className="text-xs font-black px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase tracking-wider">
                 {user.role}
               </span>
             </div>
 
-            <p className="text-xs text-slate-400">
-              User ID: <span className="text-slate-300 font-mono font-medium">{user.id}</span> • Joined {new Date(user.created_at).toLocaleDateString()}
+            <p className="text-xs text-slate-500 font-bold">
+              User ID: <span className="text-slate-800 font-mono">{user.id}</span> • Joined {new Date(user.created_at).toLocaleDateString()}
             </p>
 
             {/* Bio */}
@@ -117,20 +114,20 @@ export const ProfilePage: React.FC = () => {
                     onChange={(e) => setBioInput(e.target.value)}
                     maxLength={200}
                     rows={2}
-                    className="w-full bg-slate-950/80 border border-indigo-500/60 rounded-xl p-2.5 text-xs sm:text-sm text-white focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs sm:text-sm text-slate-900 font-medium focus:outline-none focus:border-indigo-600"
                     placeholder="Write a custom gaming bio..."
                   />
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleSaveProfile}
                       disabled={isSaving}
-                      className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white text-xs font-bold shadow-md"
+                      className="px-4 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-black shadow-sm cursor-pointer"
                     >
                       {isSaving ? 'Saving...' : 'Save Bio'}
                     </button>
                     <button
                       onClick={() => setIsEditingBio(false)}
-                      className="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-400 text-xs"
+                      className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold cursor-pointer"
                     >
                       Cancel
                     </button>
@@ -138,10 +135,10 @@ export const ProfilePage: React.FC = () => {
                 </div>
               ) : (
                 <div className="flex items-center justify-center md:justify-start gap-2">
-                  <p className="text-sm text-slate-300 italic">"{user.bio || 'Ready for some gaming fun!'}"</p>
+                  <p className="text-sm text-slate-700 font-medium italic">"{user.bio || 'Ready for some gaming fun!'}"</p>
                   <button
                     onClick={() => setIsEditingBio(true)}
-                    className="p-1 text-slate-400 hover:text-indigo-400 transition-colors"
+                    className="p-1 text-slate-400 hover:text-indigo-600 transition-colors cursor-pointer"
                   >
                     <Edit3 className="w-3.5 h-3.5" />
                   </button>
@@ -151,26 +148,26 @@ export const ProfilePage: React.FC = () => {
           </div>
 
           {/* Quick Win Rate Badge */}
-          <div className="p-4 rounded-2xl bg-indigo-950/60 border border-indigo-500/40 text-center min-w-[120px]">
-            <Trophy className="w-6 h-6 text-amber-400 mx-auto mb-1" />
-            <p className="text-2xl font-black text-white">{stats?.winRate || 0}%</p>
-            <p className="text-[10px] text-indigo-300 uppercase tracking-widest font-bold">Win Rate</p>
+          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-center min-w-[120px] shadow-xs">
+            <Trophy className="w-6 h-6 text-amber-500 mx-auto mb-1" />
+            <p className="text-2xl font-black text-slate-900">{stats?.winRate || 0}%</p>
+            <p className="text-[10px] text-amber-700 uppercase tracking-widest font-black">Win Rate</p>
           </div>
         </div>
 
         {/* Avatar Customization Selector */}
-        <div className="mt-6 pt-6 border-t border-slate-800/80">
+        <div className="mt-6 pt-6 border-t border-slate-200">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+            <h3 className="text-xs font-black text-slate-700 uppercase tracking-wider">
               Choose Profile Avatar
             </h3>
             {selectedAvatar !== user.avatar && (
               <button
                 onClick={handleSaveProfile}
                 disabled={isSaving}
-                className="text-xs px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-sm"
+                className="text-xs px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black shadow-sm cursor-pointer"
               >
-                Save Chosen Avatar
+                Save Avatar
               </button>
             )}
           </div>
@@ -184,9 +181,9 @@ export const ProfilePage: React.FC = () => {
                   sound.playClick();
                   setSelectedAvatar(av);
                 }}
-                className={`w-12 h-12 rounded-2xl bg-slate-900 object-cover cursor-pointer transition-all ${
+                className={`w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 object-cover cursor-pointer transition-all ${
                   selectedAvatar === av
-                    ? 'ring-4 ring-indigo-500 scale-110 shadow-lg shadow-indigo-500/30'
+                    ? 'ring-4 ring-indigo-600 scale-110 shadow-md'
                     : 'opacity-60 hover:opacity-100 hover:scale-105'
                 }`}
               />
@@ -195,7 +192,7 @@ export const ProfilePage: React.FC = () => {
         </div>
 
         {savedSuccess && (
-          <div className="absolute top-4 right-4 bg-emerald-500/90 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5">
+          <div className="absolute top-4 right-4 bg-emerald-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-md flex items-center gap-1.5">
             <Check className="w-4 h-4" /> Profile Updated!
           </div>
         )}
@@ -205,60 +202,60 @@ export const ProfilePage: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Ludo Stats */}
-        <div className="glass-card bg-slate-900/90 border border-slate-800 p-5 rounded-3xl shadow-xl flex items-center gap-4">
-          <div className="p-3.5 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/30">
+        <div className="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm flex items-center gap-4">
+          <div className="p-3.5 rounded-2xl bg-red-50 text-red-600 border border-red-200">
             <Crown className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-2xl font-black text-white">{stats?.ludoWins || 0} / {stats?.ludoGames || 0}</p>
-            <p className="text-xs font-semibold text-slate-400">Ludo Wins / Matches</p>
+            <p className="text-2xl font-black text-slate-900">{stats?.ludoWins || 0} / {stats?.ludoGames || 0}</p>
+            <p className="text-xs font-bold text-slate-500">Ludo Wins / Matches</p>
           </div>
         </div>
 
         {/* Snakes Stats */}
-        <div className="glass-card bg-slate-900/90 border border-slate-800 p-5 rounded-3xl shadow-xl flex items-center gap-4">
-          <div className="p-3.5 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+        <div className="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm flex items-center gap-4">
+          <div className="p-3.5 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200">
             <Sparkles className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-2xl font-black text-white">{stats?.snakesWins || 0} / {stats?.snakesGames || 0}</p>
-            <p className="text-xs font-semibold text-slate-400">Snakes Wins / Matches</p>
+            <p className="text-2xl font-black text-slate-900">{stats?.snakesWins || 0} / {stats?.snakesGames || 0}</p>
+            <p className="text-xs font-bold text-slate-500">Snakes Wins / Matches</p>
           </div>
         </div>
 
         {/* Total Games */}
-        <div className="glass-card bg-slate-900/90 border border-slate-800 p-5 rounded-3xl shadow-xl flex items-center gap-4">
-          <div className="p-3.5 rounded-2xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+        <div className="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm flex items-center gap-4">
+          <div className="p-3.5 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-200">
             <Gamepad2 className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-2xl font-black text-white">{stats?.totalGames || 0}</p>
-            <p className="text-xs font-semibold text-slate-400">Total Games Played</p>
+            <p className="text-2xl font-black text-slate-900">{stats?.totalGames || 0}</p>
+            <p className="text-xs font-bold text-slate-500">Total Games Played</p>
           </div>
         </div>
 
         {/* Friends Count */}
-        <div className="glass-card bg-slate-900/90 border border-slate-800 p-5 rounded-3xl shadow-xl flex items-center gap-4">
-          <div className="p-3.5 rounded-2xl bg-pink-500/20 text-pink-400 border border-pink-500/30">
+        <div className="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm flex items-center gap-4">
+          <div className="p-3.5 rounded-2xl bg-pink-50 text-pink-600 border border-pink-200">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-2xl font-black text-white">{stats?.friendsCount || 0}</p>
-            <p className="text-xs font-semibold text-slate-400">Gaming Friends</p>
+            <p className="text-2xl font-black text-slate-900">{stats?.friendsCount || 0}</p>
+            <p className="text-xs font-bold text-slate-500">Gaming Friends</p>
           </div>
         </div>
 
       </div>
 
       {/* Match History */}
-      <div className="glass-card bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
-        <h3 className="text-base font-bold text-white flex items-center gap-2">
-          <Calendar className="w-5 h-5 text-indigo-400" /> Recent Match History
+      <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
+        <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+          <Calendar className="w-5 h-5 text-indigo-600" /> Recent Match History
         </h3>
 
         {recentGames.length === 0 ? (
-          <div className="py-10 text-center text-slate-500 text-xs">
-            <Gamepad2 className="w-10 h-10 mx-auto mb-2 text-slate-700" />
+          <div className="py-10 text-center text-slate-500 text-xs font-bold">
+            <Gamepad2 className="w-10 h-10 mx-auto mb-2 text-slate-300" />
             No games completed yet. Play your first match from the dashboard!
           </div>
         ) : (
@@ -266,17 +263,17 @@ export const ProfilePage: React.FC = () => {
             {recentGames.map((g) => (
               <div
                 key={g.game_id}
-                className="p-3.5 rounded-2xl bg-slate-800/40 border border-slate-800 flex items-center justify-between gap-3"
+                className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3 shadow-xs"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-xl">
                     {g.rank === 1 ? '🥇' : g.rank === 2 ? '🥈' : '🥉'}
                   </span>
                   <div>
-                    <p className="text-xs sm:text-sm font-bold text-white capitalize">
+                    <p className="text-xs sm:text-sm font-black text-slate-900 capitalize">
                       {g.game_type === 'ludo' ? 'Ludo Multiplayer' : 'Snakes & Ladders'}
                     </p>
-                    <p className="text-[11px] text-slate-400">
+                    <p className="text-[11px] text-slate-500 font-medium">
                       Winner: {g.winner_username || 'Champion'} • {new Date(g.started_at).toLocaleDateString()}
                     </p>
                   </div>
@@ -286,8 +283,8 @@ export const ProfilePage: React.FC = () => {
                   <span
                     className={`text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full ${
                       g.rank === 1
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                        : 'bg-slate-700/40 text-slate-300 border border-slate-600'
+                        ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                        : 'bg-slate-200 text-slate-700'
                     }`}
                   >
                     {g.rank === 1 ? 'Victory!' : `${g.rank}th Place`}
