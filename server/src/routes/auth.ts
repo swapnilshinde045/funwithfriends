@@ -64,6 +64,23 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
       VALUES (?, ?, ?, ?, ?, ?, ?, 'online', CURRENT_TIMESTAMP)
     `).run(userId, username, email, passwordHash, selectedAvatar, role, bio || 'Ready for some gaming fun!');
 
+    // Sync to Supabase PostgreSQL
+    try {
+      const { supabase } = await import('../db/supabase.js');
+      await supabase.from('users').upsert({
+        id: userId,
+        username,
+        email,
+        password_hash: passwordHash,
+        avatar: selectedAvatar,
+        role,
+        bio: bio || 'Ready for some gaming fun!',
+        status: 'online',
+      });
+    } catch (sbErr) {
+      console.error('Supabase sync notice:', sbErr);
+    }
+
     const token = jwt.sign({ id: userId, username }, CONFIG.JWT_SECRET, { expiresIn: '7d' } as jwt.SignOptions);
 
     const newUser = db.prepare('SELECT id, username, email, avatar, role, bio, status, last_seen, created_at FROM users WHERE id = ?').get(userId) as User;
